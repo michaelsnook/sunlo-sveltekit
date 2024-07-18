@@ -18,7 +18,8 @@ const config = {
 			'globals.css': './src/globals.css',
 			images: './src/images'
 		}
-	}
+	},
+	preprocess: vitePreprocess()
 }
 
 export default config;
