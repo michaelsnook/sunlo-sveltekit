@@ -1,5 +1,17 @@
 <script>
-	import GarlicBroccoli from 'components/icons/garlic-broccoli.svelte';
+	import {
+		GarlicBroccoli,
+		Phrase,
+		Social,
+		Curiosity,
+		Plane,
+		Heart,
+		Friend,
+		Code,
+		Pencil,
+		Login,
+		Signup
+	} from 'components/icons'
 </script>
 
 <main class="flex flex-row flex-wrap gap-4 mb-8 @xl:my-20">
@@ -35,7 +47,7 @@
 		<div class="card bg-base-200 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!-- {@render phraseIcon()} --> Phrase Based
+					<Phrase /> Phrase Based
 				</h3>
 				<p>
 					Sunlo&apos;s approach is phrases-first, useful for people who are immersed in a new
@@ -51,7 +63,7 @@
 		<div class="card bg-base-200 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!-- {@render socialIcon()} --> Social Learning
+					<Social /> Social Learning
 				</h3>
 				<p>
 					We don&apos;t learn languages to earn gems or score points – we learn to connect with
@@ -68,7 +80,7 @@
 		<div class="card bg-base-200 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!--{@render curiosityIcon()} --> Driven by Curiosity
+					<Curiosity /> Driven by Curiosity
 				</h3>
 				<p>
 					Often times, trying to translate literally from one language to another doesn&apos;t
@@ -89,7 +101,7 @@
 		<div class="card bg-black/20 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!-- {@render planeIcon()} --> Moving To a New Place
+					<Plane /> Moving To a New Place
 				</h3>
 				<p>
 					If you just moved to a new place, and you&apos;re surrounded by people speaking another
@@ -105,7 +117,7 @@
 		<div class="card bg-black/20 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!-- {@render friendIcon()} --> The Friend / Guide
+					<Friend /> The Friend / Guide
 				</h3>
 				<p>
 					If you&apos;re the one helping a friend or colleague learn{' '}
@@ -121,7 +133,7 @@
 		<div class="card bg-black/20 basis-80 shadow-xl">
 			<div class="card-body">
 				<h3 class="card-title">
-					<!-- {@render heartIcon()} --> Extended Family
+					<Heart /> Extended Family
 				</h3>
 				<p>
 					If you haven&apos;t yet learned your family&apos;s ancestral language, and now you feel a
@@ -233,15 +245,15 @@
 </section>
 <footer class="my-16 pt-4 @lg:pt-10 pb-16 flex flex-row flex-wrap justify-center gap-8">
 	<a class="btn btn-ghost" href="https://github.com/michaelsnook/sunlo-nextjs">
-		<!-- {@render codeIcon()} --> &nbsp;GitHub
+		<Code /> &nbsp;GitHub
 	</a>
 	<a class="btn btn-ghost" href="/privacy-policy">
-		<!-- {@render pencilIcon()} --> &nbsp;Privacy Policy
+		<Pencil /> &nbsp;Privacy Policy
 	</a>
 	<a class="btn btn-ghost" href="/login">
-		<!-- {@render loginIcon()} --> &nbsp;Login
+		<Login /> &nbsp;Login
 	</a>
 	<a class="btn btn-ghost" href="/signup">
-		<!-- {@render signupIcon()} --> &nbsp;Signup
+		<Signup /> &nbsp;Signup
 	</a>
 </footer>
