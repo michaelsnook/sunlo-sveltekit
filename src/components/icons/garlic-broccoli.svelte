@@ -1,6 +1,6 @@
 <script>
 	import image from 'images/logo-pair.png'
-	const { size = 240, classes = '' } = $props();
+	const { size = 240, classes = '' } = $props()
 </script>
 
 <img
