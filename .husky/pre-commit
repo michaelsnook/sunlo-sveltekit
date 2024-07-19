@@ -1,7 +1,4 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npx prettier --check .
-# npm run lint
-
+# .husky/pre-commit
+pnpm exec prettier --check .
+# pnpm exec lint
 echo '\n✅✅✅✅ Everything looks good! I am committing this now. ✅✅✅✅\n'
