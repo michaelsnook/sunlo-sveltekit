@@ -38,14 +38,14 @@ const _useSession = () => {
 				uid: newSession?.user.id || '',
 				error: null,
 			}
-			console.log(`flushed sink`, session, session.value, session.value.data)
+			// console.log(`flushed sink`, session, session.value, session.value.data)
 
 			if (newSession?.user.id !== session.value.data?.user.id) {
 				// clear local cache maybe?
 			}
 		} else {
 			session.value = { ...emptySessionHook, isLoading: false }
-			console.log(`cleared context and flushed`, session.value)
+			// console.log(`cleared context and flushed`, session.value)
 		}
 	})
 
