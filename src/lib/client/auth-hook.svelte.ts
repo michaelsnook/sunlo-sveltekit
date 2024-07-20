@@ -2,9 +2,9 @@
 // https://code.build/p/svelte-5-todo-app-with-firebase-X1Tr3J
 
 import { useSharedStore } from './use-shared-store.svelte'
-import { onDestroy, flushSync } from 'svelte'
+import { onDestroy } from 'svelte'
 import { rune } from './rune.svelte'
-import supabase from '$lib/supabase-client'
+import { supabase } from '$lib'
 import type { AuthSession } from '@supabase/supabase-js'
 
 export const logout = () => supabase.auth.signOut()
@@ -31,24 +31,20 @@ const _useSession = () => {
 	const { data: listener } = supabase.auth.onAuthStateChange((event, newSession) => {
 		console.log(`Firing the auth state changed callback: ${event}`, newSession)
 		if (event !== 'SIGNED_OUT') {
-			flushSync(() => {
-				session.value = {
-					isLoading: false,
-					data: newSession,
-					isAuth: newSession?.user.role === 'authenticated',
-					uid: newSession?.user.id || '',
-					error: null,
-				}
-			})
+			session.value = {
+				isLoading: false,
+				data: newSession,
+				isAuth: newSession?.user.role === 'authenticated',
+				uid: newSession?.user.id || '',
+				error: null,
+			}
 			console.log(`flushed sink`, session, session.value, session.value.data)
 
 			if (newSession?.user.id !== session.value.data?.user.id) {
 				// clear local cache maybe?
 			}
 		} else {
-			flushSync(() => {
-				session.value = { ...emptySessionHook, isLoading: false }
-			})
+			session.value = { ...emptySessionHook, isLoading: false }
 			console.log(`cleared context and flushed`, session.value)
 		}
 	})
