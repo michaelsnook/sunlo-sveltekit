@@ -10,7 +10,7 @@
 		Code,
 		Pencil,
 		Login,
-		Signup
+		Signup,
 	} from 'components/icons'
 </script>
 

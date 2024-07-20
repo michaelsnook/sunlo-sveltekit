@@ -5,7 +5,7 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/container-queries'),
 		require('@tailwindcss/forms'),
-		require('daisyui')
+		require('daisyui'),
 	],
 	daisyui: {
 		styled: true,
@@ -13,18 +13,18 @@ module.exports = {
 			{
 				light: {
 					...require('daisyui/src/theming/themes')['light'],
-					primary: '#663399'
-				}
+					primary: '#663399',
+				},
 			},
 			{
 				dark: {
 					...require('daisyui/src/theming/themes')['dark'],
-					primary: '#663399'
-				}
-			}
+					primary: '#663399',
+				},
+			},
 		],
 		base: true,
 		utils: true,
-		logs: true
-	}
+		logs: true,
+	},
 }

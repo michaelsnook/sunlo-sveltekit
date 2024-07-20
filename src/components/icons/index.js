@@ -21,5 +21,5 @@ export {
 	Code,
 	Pencil,
 	Login,
-	Signup
+	Signup,
 }
