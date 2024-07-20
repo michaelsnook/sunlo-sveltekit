@@ -1,23 +1,25 @@
 <script lang="ts">
-	import { createQuery } from '@tanstack/svelte-query'
 	import { supabase } from '$lib'
-	import type { CreateQueryResult } from '@tanstack/svelte-query'
 
-	const query: CreateQueryResult = createQuery({
-		queryKey: ['decks'],
-		queryFn: () => supabase.from('user_deck_plus').select('*'),
-	})
-	console.log(`logging the query`, query)
+	const promise = supabase.from('user_deck_plus').select('*')
 </script>
 
-<div>
-	{#if query.isLoading}
+<main class="flex flex-col gap-4 p-2">
+	{#await promise}
 		<p>Loading...</p>
-	{:else if query.isError}
-		<p>Error: {query.error.message}</p>
-	{:else if query.isSuccess}
-		{#each query.data as deck}
-			<p>{deck.title}</p>
-		{/each}
-	{/if}
-</div>
+	{:then response}
+		{#if response.error}
+			<p>Error: {response.error.message}</p>
+		{:else if response.data}
+			<ol>
+				{#each response.data as deck}
+					<li class="glass p-2 rounded text-center my-2">
+						<a href="deck/{deck.lang}">
+							<p class="text-xl py-2">{deck.lang}</p>
+						</a>
+					</li>
+				{/each}
+			</ol>
+		{/if}
+	{/await}
+</main>
