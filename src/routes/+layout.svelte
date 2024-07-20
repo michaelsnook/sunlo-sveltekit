@@ -18,7 +18,8 @@
 				class="btn btn-primary {!session.isAuth && 'opacity-50'}"
 				onclick={() => supabase.auth.signOut()}>button to log out</button
 			>
-			<a class="" href="/login">Link to log in</a>
+			<a class="" href="/login">Log in</a>
+			<a class="" href="/deck">Decks</a>
 		</div>
 		<p class="w-app text-center">
 			{#if session.isAuth}Logged in{:else}No login detected{/if}
