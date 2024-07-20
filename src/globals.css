@@ -24,7 +24,8 @@
 
 @layer components {
 	.w-app {
-		@apply w-full max-w-[40rem] mx-auto;
+		@apply mx-auto;
+		width: calc(min(98%, 36rem));
 	}
 	.s-link {
 		@apply link decoration-base-content/50 hover:decoration-base-content cursor-pointer;
