@@ -1,36 +1,48 @@
 <script lang="ts">
-	import supabase from '$lib/supabase-client'
-	//import ErrorList from 'components/ErrorList'
-	//import Loading from 'components/Loading.svelte'
+	import Error from 'components/Error.svelte'
+	import Loading from 'components/Loading.svelte'
+	import { postReview } from './post-review'
+	import type { MutationState, Review } from '$lib/types/client-types'
+	import type { CardStub } from '$lib/types/client-types'
 
-	const { card, nextCard, addReview, hidden } = $props()
+	const {
+		card,
+		nextCard,
+		addReview,
+		hidden,
+	}: {
+		card: CardStub
+		nextCard: Function
+		addReview: Function
+		hidden: boolean
+	} = $props()
 
-	const postReview = async ({ card_id, score, prevId }) => {
-		if (!card_id || !score) throw Error('Invalid review; cannot log')
-		const id = prevId ? { id: prevId } : {}
-		const submitData = {
-			score,
-			card_id,
-			...id,
-		}
-		// console.log(`About to post the review,`, submitData, prevId)
-		const { data, error } = await supabase.from('user_card_review').upsert(submitData).select()
-
-		if (error) throw Error(error)
-		// console.log(`We posted the review,`, data, error)
-		return data[0]
-	}
+	let postMutation: MutationState<Review> = $state({ isSubmitting: false })
 
 	let isRevealed = $state(false)
-	const reveal = () => {
+
+	function reveal() {
 		isRevealed = true
+		console.log(`I reveal props are like:`, card, hidden)
 	}
 
-	const { data, error, mutate, status } = {
-		data: {},
-		error: null,
-		mutate: () => {},
-		status: 'success',
+	function mutate(score: number) {
+		const id = postMutation.data?.id
+		postMutation = { isSubmitting: true }
+
+		postReview(card.id, score, id).then(({ data, error }) => {
+			if (data) {
+				addReview(data)
+				nextCard()
+			}
+			postMutation = error
+				? { isSubmitting: false, error }
+				: {
+						isSubmitting: false,
+						isSuccess: true,
+						data,
+					}
+		})
 	}
 
 	/*useMutation({
@@ -58,20 +70,20 @@
 	<div class="card-white">
 		<div class="flex flex-col justify-center text-center gap-8">
 			<h2 class="h2 text-center">{card?.phrase?.text}</h2>
-			{#if status === 'loading'}
+			{#if postMutation.isSubmitting}
 				<div class="absolute bg-base-100/70 top-0 left-0 right-0 bottom-0 content-center">
 					<Loading />
 				</div>
 			{/if}
-			{#if status === 'error'}
+			{#if postMutation.error}
 				<div class="absolute bg-base-100/50 top-0 left-0 right-0 bottom-0">
-					<ErrorList {error} />
+					<Error>{postMutation.error.message}</Error>
 				</div>
 			{/if}
 			{#if !isRevealed}
 				<div class="flex gap-4 justify-center">
-					<button class="btn btn-success" onClick={reveal}> Yes I know it </button>
-					<button class="btn btn-warning" onClick={reveal}> I don&apos;t know it </button>
+					<button class="btn btn-success" onclick={reveal}> Yes I know it </button>
+					<button class="btn btn-warning" onclick={reveal}> I don&apos;t know it </button>
 				</div>
 			{:else}
 				<div>
@@ -81,30 +93,30 @@
 				</div>
 				<div class="flex gap-2 flex-row flex-wrap justify-center">
 					<button
-						class="{btnClasses} btn btn-success {data ? 'btn-outline' : ''}"
-						onclick={() => mutate({ score: 2 })}
-						disabled={data?.score === 2}
+						class="{btnClasses} btn btn-success {postMutation.data ? 'btn-outline' : ''}"
+						onclick={() => mutate(2)}
+						disabled={postMutation.data?.score === 2}
 					>
 						Nailed it!
 					</button>
 					<button
-						class={`${btnClasses} btn btn-info ${data ? 'btn-outline' : ''}`}
-						onclick={() => mutate({ score: 1 })}
-						disabled={data?.score === 1}
+						class="{btnClasses} btn btn-info {postMutation.data ? 'btn-outline' : ''}"
+						onclick={() => mutate(1)}
+						disabled={postMutation.data?.score === 1}
 					>
 						Got it
 					</button>
 					<button
-						class="{btnClasses} btn btn-warning {data ? 'btn-outline' : ''}"
-						onclick={() => mutate({ score: -1 })}
-						disabled={data?.score === -1}
+						class="{btnClasses} btn btn-warning {postMutation.data ? 'btn-outline' : ''}"
+						onclick={() => mutate(-1)}
+						disabled={postMutation.data?.score === -1}
 					>
 						It was hard
 					</button>
 					<button
-						class="{btnClasses} btn btn-error {data ? 'btn-outline' : ''}"
-						onclick={() => mutate({ score: -2 })}
-						disabled={data?.score === -2}
+						class="{btnClasses} btn btn-error {postMutation.data ? 'btn-outline' : ''}"
+						onclick={() => mutate(-2)}
+						disabled={postMutation.data?.score === -2}
 					>
 						Didn&apos;t get it
 					</button>

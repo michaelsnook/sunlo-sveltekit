@@ -1,17 +1,12 @@
 <script lang="ts">
 	import { supabase } from '$lib'
-	import type { AuthError } from '@supabase/supabase-js'
+	import type { MutationState } from '$lib/types/client-types'
 	import Error from 'components/Error.svelte'
 	import { useSession } from '$lib/client/auth-hook.svelte'
 
 	let _session = useSession()
 	let session = $derived(_session.value)
 
-	type MutationState = {
-		isSubmitting: boolean
-		error?: AuthError
-		isSuccess?: boolean
-	}
 	let login: MutationState = $state({ isSubmitting: false })
 	let formData = $state({ email: '', password: '' })
 
