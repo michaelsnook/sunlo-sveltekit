@@ -3,11 +3,13 @@
 	import type { MutationState } from '$lib/types/client-types'
 	import Error from 'components/Error.svelte'
 	import { useSession } from '$lib/client/auth-hook.svelte'
+	import type { AuthSession } from '@supabase/supabase-js'
+	import { goto } from '$app/navigation'
 
 	let _session = useSession()
 	let session = $derived(_session.value)
 
-	let login: MutationState = $state({ isSubmitting: false })
+	let login: MutationState<AuthSession> = $state({ isSubmitting: false })
 	let formData = $state({ email: '', password: '' })
 
 	async function handleSubmit(event: {
@@ -15,17 +17,21 @@
 		currentTarget: EventTarget & HTMLFormElement
 	}) {
 		event.preventDefault()
-		login.isSubmitting = true
+		login = { isSubmitting: true }
 
-		const { data, error } = await supabase.auth.signInWithPassword(formData)
-
-		if (error) {
-			login.isSubmitting = false
-			login.error = error
-		} else {
-			login.isSubmitting = false
-			login.isSuccess = true
-		}
+		supabase.auth.signInWithPassword(formData).then(({ data, error }) => {
+			login = error
+				? {
+						isSubmitting: false,
+						error,
+					}
+				: {
+						isSubmitting: false,
+						data: data.session,
+						isSuccess: true,
+					}
+			goto('/deck')
+		})
 	}
 </script>
 
