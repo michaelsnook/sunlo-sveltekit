@@ -11,13 +11,13 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.44.4
         version: 2.44.4
+      '@sveltejs/adapter-auto':
+        specifier: ^3.2.2
+        version: 3.2.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))
     devDependencies:
       '@playwright/test':
         specifier: ^1.45.2
         version: 1.45.2
-      '@sveltejs/adapter-static':
-        specifier: ^3.0.2
-        version: 3.0.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))
       '@sveltejs/kit':
         specifier: ^2.5.18
         version: 2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11))
@@ -431,8 +431,8 @@ packages:
   '@supabase/supabase-js@2.44.4':
     resolution: {integrity: sha512-vqtUp8umqcgj+RPUc7LiEcQmgsEWFDPJdJizRJF/5tf2zSlVB+3YbUwyQE/hLagYA8TLvGXe7oAqtYyFde6llw==}
 
-  '@sveltejs/adapter-static@3.0.2':
-    resolution: {integrity: sha512-/EBFydZDwfwFfFEuF1vzUseBoRziwKP7AoHAwv+Ot3M084sE/HTVBHf9mCmXfdM9ijprY5YEugZjleflncX5fQ==}
+  '@sveltejs/adapter-auto@3.2.2':
+    resolution: {integrity: sha512-Mso5xPCA8zgcKrv+QioVlqMZkyUQ5MjDJiEPuG/Z7cV/5tmwV7LmcVWk5tZ+H0NCOV1x12AsoSpt/CwFwuVXMA==}
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
 
@@ -2111,9 +2111,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@sveltejs/adapter-static@3.0.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))':
+  '@sveltejs/adapter-auto@3.2.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))':
     dependencies:
       '@sveltejs/kit': 2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11))
+      import-meta-resolve: 4.1.0
 
   '@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11)))(svelte@5.0.0-next.191)(vite@5.3.4(@types/node@20.14.11))':
     dependencies:

@@ -17,7 +17,6 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.45.2",
-		"@sveltejs/adapter-static": "^3.0.2",
 		"@sveltejs/kit": "^2.5.18",
 		"@sveltejs/vite-plugin-svelte": "^3.1.1",
 		"@tailwindcss/container-queries": "^0.1.1",
@@ -45,7 +44,8 @@
 		"vitest": "^1.6.0"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "^2.44.4"
+		"@supabase/supabase-js": "^2.44.4",
+		"@sveltejs/adapter-auto": "^3.2.2"
 	},
 	"type": "module"
 }
