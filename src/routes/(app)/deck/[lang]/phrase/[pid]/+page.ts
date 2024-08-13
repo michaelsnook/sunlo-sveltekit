@@ -1,4 +1,4 @@
-import { supabase } from '$lib'
+import { collateArray, supabase } from '$lib'
 
 export async function load({ params }) {
 	const { data, error } = await supabase
@@ -8,6 +8,6 @@ export async function load({ params }) {
 		.maybeSingle()
 	if (error) throw error
 
-	const phrases = groupBy(data, 'id')
+	const phrases = collateArray(data, 'id')
 	return phrases
 }

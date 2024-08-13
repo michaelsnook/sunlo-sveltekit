@@ -1,4 +1,4 @@
-import { groupBy, supabase } from '$lib'
+import { collateArray, supabase } from '$lib'
 
 function shuffle(array: Array<any>) {
 	if (!(array?.length > 0)) return []
@@ -26,7 +26,7 @@ export async function load({ params: { lang } }) {
 		.eq('lang', lang)
 		.maybeSingle()
 
-	const grouped = groupBy(data?.user_card, 'status')
+	const grouped = collateArray(data?.user_card, 'status')
 	const cards = shuffle(grouped['active'])
 	console.log(`Logging the data from deck/lang/review`, cards)
 

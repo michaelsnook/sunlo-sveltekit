@@ -18,14 +18,14 @@ export async function postReview(card_id: string, score: number, id?: string | n
 	return { data, error }
 }
 
-export async function getRecentReviewActivity() {
+export async function getRecentReviewActivity<ReviewsCollated>() {
 	const { data, error } = await supabase
 		.from('user_card_review_plus')
 		.select('*')
 		.order('created_at', { ascending: false })
 	if (error) throw error
 
-	const result = groupBy(data, 'lang')
+	const result = collateArray(data, 'lang')
 	console.log(`The collated array`, result)
 
 	return {
