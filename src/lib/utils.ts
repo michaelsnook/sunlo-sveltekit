@@ -1,6 +1,6 @@
 /*import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { uuid } from '$lib/types/index'
+import { uuid } from '$lib/types/main'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -44,12 +44,13 @@ export function pluck(fromOb: object, keys: Array<string>): object {
 	return res
 }
 
+*/
 export function mapArray<T>(arr: Array<T>, key: string): { [key: string]: T } {
 	const result = {}
 	arr.forEach((item) => (result[item[key]] = item))
 	return result
 }
-*/
+
 export function collateArray<T>(
 	arr: Array<T>,
 	key: string
@@ -58,12 +59,14 @@ export function collateArray<T>(
 } {
 	const result = {}
 	arr.forEach((item) => {
-		result[item[key]] ??= []
-		result[item[key]].push(item)
+		const k = item[key] || ''
+		if (typeof k !== 'string' || !(k?.length > 0)) return
+		if (!(k in result)) result[k] = []
+		result[k].push(item)
 	})
 	return result
 }
-/*
+
 export const selects = {
 	card_full: () => `*, reviews:user_card_review_plus(*)` as const,
 	deck_full: () => `*, cards:user_card_plus(${selects.card_full()})` as const,
@@ -71,6 +74,7 @@ export const selects = {
 	language_full: () => `*, phrases:phrase_plus(${selects.phrase_full()})` as const,
 }
 
+/*
 export const links = {
 	deckPhrase: (lang: string, pid: uuid): string => `/my-decks/${lang}/phrase/${pid}`,
 }
