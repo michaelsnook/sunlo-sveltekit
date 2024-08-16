@@ -1,14 +1,13 @@
 // place files you want to import through the `$lib` alias in this folder.
 import supabase from './supabase-client'
-import { collateArray } from './utils'
-import groupBy from './array-group-by'
-import { selects } from '$lib/utils'
+import { collateArray, selects } from './utils'
 import { profileQuery, deckQuery, languageQuery, recentReviewsQuery } from './queries'
+import { useAuth } from './session-store.svelte'
 
 export {
+	useAuth,
 	supabase,
 	collateArray,
-	groupBy,
 	selects,
 	profileQuery,
 	deckQuery,

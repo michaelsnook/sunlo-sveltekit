@@ -2,9 +2,10 @@
 	import 'globals.css'
 	import { supabase } from '$lib'
 	import { useSession } from '$lib/client/auth-hook.svelte'
-	let _session = useSession()
+	import { useAuth } from '$lib/session-store.svelte'
 	let session = $derived(_session.value)
 	let { children } = $props()
+	const auth = useAuth()
 </script>
 
 <div class="@container w-full max-w-[1100px] min-h-screen py-20 mx-auto px-[1%]">
@@ -15,14 +16,15 @@
 			<span>Utility belt:</span>
 			<button
 				type="button"
-				class="btn btn-primary {!session.isAuth && 'opacity-50'}"
+				class="btn btn-primary {auth.isAuth ? '' : 'btn-outline'}"
 				onclick={() => supabase.auth.signOut()}>button to log out</button
 			>
-			<a class="" href="/login">Log in</a>
-			<a class="" href="/deck">Decks</a>
+			<a class="btn btn-primary {auth.isAuth ? 'btn-outline' : ''}" href="/login">Log in</a>
+			<a class="nav-link" href="/deck">Decks</a>
+			<a class="nav-link" href="/deck">Home</a>
 		</div>
 		<p class="w-app text-center">
-			{#if session.isAuth}Logged in{:else}No login detected{/if}
+			{#if auth.isAuth}Logged in{:else}No login detected{/if}
 		</p>
 	</footer>
 </div>

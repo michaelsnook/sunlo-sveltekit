@@ -1,12 +1,4 @@
 import type { Scalars } from './utils'
-import type { QueryError } from '@supabase/supabase-js'
-
-export type MutationState<T> = {
-	isSubmitting: boolean
-	isSuccess?: boolean
-	data?: T
-	error?: QueryError | { message: string }
-}
 
 export type Translation = {
 	id: Scalars['UUID']
@@ -94,6 +86,6 @@ export type Review = ReviewUpsertInputs & {
 }
 export type ReviewsCollated = {
 	list: Array<Review>
-	collated: Object
+	collated: object
 	keysInOrder: Array<string>
 }

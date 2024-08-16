@@ -1,45 +1,31 @@
 <script lang="ts">
-	import { supabase } from '$lib'
-	import type { MutationState } from '$lib/types/client-types'
+	import { supabase, useAuth } from '$lib'
 	import Error from 'components/Error.svelte'
 	import { useSession } from '$lib/client/auth-hook.svelte'
 	import type { AuthSession } from '@supabase/supabase-js'
 	import { goto } from '$app/navigation'
 
-	let _session = useSession()
-	let session = $derived(_session.value)
-
-	let login: MutationState<AuthSession> = $state({ isSubmitting: false })
 	let formData = $state({ email: '', password: '' })
+
+	// mocking the mutation for this step
+	let login = { isPending: false, error: null }
 
 	async function handleSubmit(event: {
 		preventDefault: Function
 		currentTarget: EventTarget & HTMLFormElement
 	}) {
 		event.preventDefault()
-		login = { isSubmitting: true }
-
-		supabase.auth.signInWithPassword(formData).then(({ data, error }) => {
-			login = error
-				? {
-						isSubmitting: false,
-						error,
-					}
-				: {
-						isSubmitting: false,
-						data: data.session,
-						isSuccess: true,
-					}
-			goto('/deck')
-		})
+		supabase.auth.signInWithPassword(formData).then((res) => goto('/deck'))
+		// login.mutate()
 	}
+	let auth = useAuth()
 </script>
 
-{#if session.isAuth}
+{#if auth.isAuth}
 	<p>It looks like you're already logged in; are you trying to log in as someone else?</p>
 {/if}
 <form onsubmit={handleSubmit} class="form">
-	<fieldset class="flex flex-col gap-y-4" disabled={login.isSubmitting}>
+	<fieldset class="flex flex-col gap-y-4" disabled={login.isPending}>
 		<div>
 			<label for="email">Email</label>
 			<input

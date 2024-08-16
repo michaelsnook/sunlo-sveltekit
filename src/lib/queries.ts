@@ -30,7 +30,7 @@ export const profileQuery = () => {
 		},
 	})
 }
-s
+
 async function fetchLanguage(lang: string): Promise<LanguageLoaded> {
 	const { data } = await supabase
 		.from('language_plus')
